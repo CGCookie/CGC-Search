@@ -57,10 +57,22 @@ class CGC_Search_Form {
 		if( 'members' != $_GET['type'] )
 			return;
 
-		$templates = array( 'search-members.php' );
 
-		locate_template( $templates, true, true );
-		exit;
+		// Check child theme
+		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'search-members.php' ) ) {
+			$located = trailingslashit( get_stylesheet_directory() )  . 'search-members.php';
+
+		// Check parent theme next
+		} elseif ( file_exists( trailingslashit( get_template_directory() ) . 'search-members.php' ) ) {
+			$located = trailingslashit( get_template_directory() ) . 'search-members.php';
+		}
+		//echo $located;
+		if( ! empty( $located ) ) {
+			$templates = array( 'search-members.php' );
+			locate_template( $templates, true, true );
+			exit;
+		}
+
 	}
 }
 
