@@ -26,12 +26,14 @@ class CGC_Search_Form {
 		ob_start(); ?>
 		<form role="search" method="get" id="searchform" action="<?php echo home_url(); ?>">
 			<label class="screen-reader-text" for="searchinput"></label>
-			<input type="text" name="s" id="searchinput" value="<?php echo get_search_query(); ?>"/>
-			<select name="type" id="cgc-search-type">
-				<option value="tutorials">Tutorials</option>
-				<option value="members"<?php selected( 'members', $type ); ?>>Members</option>
-			</select>
-			<button type="submit" id="searchsubmit"><i class="icon-search"></i></button>
+			<input type="text" name="s" id="searchinput" placeholder="Search" value="<?php echo get_search_query(); ?>"/>
+			<div class="search-buttons">
+				<select name="type" id="cgc-search-type">
+					<option value="tutorials">Tutorials</option>
+					<option value="members"<?php selected( 'members', $type ); ?>>Members</option>
+				</select>
+				<button type="submit" id="searchsubmit"><i class="icon-search"></i></button>
+			</div>
 		</form>
 		<?php
 		return ob_get_clean();
