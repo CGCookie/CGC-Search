@@ -16,7 +16,7 @@ class CGC_Search_Form {
 
 		// Actions
 		add_action( 'template_redirect', array( $this, 'search_template' ) );
-		add_action( 'pre_get_posts', array( $this, 'tweak_search' ) );
+		add_action( 'pre_get_posts', array( $this, 'tweak_search' ), 999 );
 
 		// Short Codes
 		add_shortcode( 'advanced_search', array( $this, 'shortcode' ) );
@@ -83,11 +83,11 @@ class CGC_Search_Form {
 				if( $post_types && is_null( $post_type ) ) {
 					echo '<div class="cgc-post-type">';
 					if ( $search_type_text ) echo '<h3>' . $search_type_text . '</h3>';
-					$value = isset( $_GET['post_type'] ) ? $_GET['post_type'] : 'any';
+					$value = isset( $_GET['s_post_type'] ) ? $_GET['s_post_type'] : 'any';
 					$checked = ' ' . checked( '', $value, false );
 					echo '<fieldset id="cgc-type-fields">';
 						echo '<span class="cgc-type">';
-							echo '<input type="radio" id="cgc-as-type-any" name="post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
+							echo '<input type="radio" id="cgc-as-type-any" name="s_post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
 							echo '<label for="cgc-as-type-any" class="cgc-as-label">Any</label>';
 						echo '</span>';
 
@@ -95,7 +95,7 @@ class CGC_Search_Form {
 							$checked = ' ' . checked( $type->name, $value, false );
 							if( !in_array( $type->name, $exluded_types ) || !is_array( $exluded_types ) ) {
 								echo '<span class="cgc-type">';
-									echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
+									echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label">' . $type->labels->singular_name . '</label>';
 								echo '</span>';
 							}
@@ -103,7 +103,7 @@ class CGC_Search_Form {
 						echo '</fieldset>';
 					echo '</div>';
 				} else {
-					echo '<input type="hidden" name="post_type" value="' . $post_type . '"/>';
+					echo '<input type="hidden" name="s_post_type" value="' . $post_type . '"/>';
 				}
 
 				if( $categories ) {
@@ -235,15 +235,13 @@ class CGC_Search_Form {
 			foreach( $search_params as $key => $param ) {
 				if( 'cgc-search' != $key ) {
 					if( is_string( $param ) ) {
+						if( 's_post_type' == $key )
+							$key = 'post_type';
 						$query->set( $key, rawurldecode( $param ) );
 					} else {
 						$query->set( $key, $param );
 					}
 				}
-			}
-			if( isset( $search_params['post_type'] ) && false !== array_search( 'any', $search_params['post_type'] ) ) {
-				// override the other post types set
-				$query->set( 'post_type', 'any' );
 			}
 
 			//echo '<pre>'; print_r( $query ); echo '</pre>'; exit;
