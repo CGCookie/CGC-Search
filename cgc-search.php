@@ -148,19 +148,19 @@ class CGC_Search_Form {
 						echo '<fieldset id="cgc-tag-fields">';
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-tag">';
-									echo '<input type="radio" id="cgc-as-tag-any" name="post_tag" value=""' . $checked . '/>&nbsp;';
+									echo '<input type="radio" id="cgc-as-tag-any" name="s_post_tag" value=""' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-tag-any" class="cgc-as-label">Any</label>';
 								echo '</span>';
 								foreach( $tags as $tag ) {
 									$checked = ' ' . checked( $tag->slug, $value, false );
 									echo '<span class="cgc-tag">';
-										echo '<input type="radio" id="cgc-as-tag-' . $tag->slug . '" name="post_tag" value="' . $tag->slug . '"' . $checked . '/>&nbsp;';
+										echo '<input type="radio" id="cgc-as-tag-' . $tag->slug . '" name="s_post_tag" value="' . $tag->slug . '"' . $checked . '/>&nbsp;';
 										echo '<label for="cgc-as-tag-' . $tag->slug . '" class="cgc-as-label">' . $tag->name . '</label>';
 									echo '</span>';
 								}
 							} else {
 								$selected = ' ' . selected( '', $value, false );
-								echo '<select name="post_tag" id="cgc-as-tag">';
+								echo '<select name="s_post_tag" id="cgc-as-tag">';
 									echo '<option id="cgc-as-tag-any" value=""' . $selected . '>Any</option>';
 									foreach( $tags as $tag ) {
 										$selected = ' ' . selected( $cat->slug, $value, false );
@@ -184,19 +184,19 @@ class CGC_Search_Form {
 							echo '<fieldset id="cgc-' . $taxonomy->query_var . '-fields">';
 								if( $style == 'radio' ) {
 									echo '<span class="cgc-category">';
-										echo '<input type="radio" id="cgc-as-' . $taxonomy->query_var . '-any" name="' . $taxonomy->query_var . '" value=""' . $checked . '/>&nbsp;';
+										echo '<input type="radio" id="cgc-as-' . $taxonomy->query_var . '-any" name="s_' . $taxonomy->query_var . '" value=""' . $checked . '/>&nbsp;';
 										echo '<label for="cgc-as-' . $taxonomy->query_var . '-any" class="cgc-as-label">Any</label>';
 									echo '</span>';
 									foreach( $terms as $term ) {
 										$checked = ' ' . checked( $term->slug, $value, false );
 										echo '<span class="cgc-' . $term->name . '">';
-											echo '<input type="radio" id="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" name="' . $taxonomy->query_var . '" value="' . $term->slug . '"' . $checked . '/>&nbsp;';
+											echo '<input type="radio" id="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" name="s_' . $taxonomy->query_var . '" value="' . $term->slug . '"' . $checked . '/>&nbsp;';
 											echo '<label for="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" class="cgc-as-label">' . $term->name . '</label>';
 										echo '</span>';
 									}
 								} else {
 									$selected = ' ' . selected( 0, $value, false );
-									echo '<select name="' . $taxonomy->query_var . '" id="cgc-as-' . $taxonomy->query_var . '">';
+									echo '<select name="s_' . $taxonomy->query_var . '" id="cgc-as-' . $taxonomy->query_var . '">';
 										echo '<option id="cgc-as-' . $taxonomy->query_var . '-any" value="0"' . $selected . '>Any</option>';
 										foreach( $terms as $term ) {
 											$selected = ' ' . selected( $term->slug, $value, false );
@@ -235,12 +235,8 @@ class CGC_Search_Form {
 			foreach( $search_params as $key => $param ) {
 				if( 'cgc-search' != $key ) {
 					if( is_string( $param ) ) {
-						if( 's_post_type' == $key )
-							$key = 'post_type';
-						if( 's_post_type' == $key && 'images' == $param )
-							$search_params['s_category'] = 'imagecategories';
-						if( 's_category' == $key )
-							$key = 'category';
+						if( substr( $key, 0, 2 ) == 's_' )
+							$key = substr( $key, 2 strlen( $key ) );
 						$query->set( $key, rawurldecode( $param ) );
 					} else {
 						$query->set( $key, $param );
