@@ -110,24 +110,24 @@ class CGC_Search_Form {
 					$cats = get_categories();
 					echo '<div class="cgc-category">';
 						if ( $search_cat_text ) echo '<h3>' . $search_cat_text . '</h3>';
-						$value   = isset( $_GET['category'] ) ? $_GET['category'] : '';
+						$value   = isset( $_GET['s_category'] ) ? $_GET['s_category'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-category-fields">';
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-category">';
-									echo '<input type="radio" id="cgc-as-cat-any" name="category" value=""' . $checked . '/>&nbsp;';
+									echo '<input type="radio" id="cgc-as-cat-any" name="s_category" value=""' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-cat-any" class="cgc-as-label">Any</label>';
 								echo '</span>';
 								foreach( $cats as $cat ) {
 									$checked = ' ' . checked( $cat->slug, $value, false );
 									echo '<span class="cgc-category">';
-										echo '<input type="radio" id="cgc-as-cat-' . $cat->slug . '" name="category" value="' . $cat->slug . '"' . $checked . '/>&nbsp;';
+										echo '<input type="radio" id="cgc-as-cat-' . $cat->slug . '" name="s_category" value="' . $cat->slug . '"' . $checked . '/>&nbsp;';
 										echo '<label for="cgc-as-cat-' . $cat->slug . '" class="cgc-as-label">' . $cat->name . '</label>';
 									echo '</span>';
 								}
 							} else {
 								$selected = ' ' . selected( '', $value, false );
-								echo '<select name="category" id="cgc-as-category-name">';
+								echo '<select name="s_category" id="cgc-as-category-name">';
 									echo '<option id="cgc-as-cat-any" value=""' . $selected . '>Any</option>';
 									foreach( $cats as $cat ) {
 										$selected = ' ' . selected( $cat->slug, $value, false );
@@ -237,6 +237,8 @@ class CGC_Search_Form {
 					if( is_string( $param ) ) {
 						if( 's_post_type' == $key )
 							$key = 'post_type';
+						if( 's_category' == $key )
+							$key = 'category';
 						$query->set( $key, rawurldecode( $param ) );
 					} else {
 						$query->set( $key, $param );
