@@ -110,24 +110,24 @@ class CGC_Search_Form {
 					$cats = get_categories();
 					echo '<div class="cgc-category">';
 						if ( $search_cat_text ) echo '<h3>' . $search_cat_text . '</h3>';
-						$value   = isset( $_GET['category_name'] ) ? $_GET['category_name'] : '';
+						$value   = isset( $_GET['category'] ) ? $_GET['category'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-category-fields">';
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-category">';
-									echo '<input type="radio" id="cgc-as-cat-any" name="category_name" value=""' . $checked . '/>&nbsp;';
+									echo '<input type="radio" id="cgc-as-cat-any" name="category" value=""' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-cat-any" class="cgc-as-label">Any</label>';
 								echo '</span>';
 								foreach( $cats as $cat ) {
 									$checked = ' ' . checked( $cat->slug, $value, false );
 									echo '<span class="cgc-category">';
-										echo '<input type="radio" id="cgc-as-cat-' . $cat->slug . '" name="category_name" value="' . $cat->slug . '"' . $checked . '/>&nbsp;';
+										echo '<input type="radio" id="cgc-as-cat-' . $cat->slug . '" name="category" value="' . $cat->slug . '"' . $checked . '/>&nbsp;';
 										echo '<label for="cgc-as-cat-' . $cat->slug . '" class="cgc-as-label">' . $cat->name . '</label>';
 									echo '</span>';
 								}
 							} else {
 								$selected = ' ' . selected( '', $value, false );
-								echo '<select name="category_name" id="cgc-as-category-name">';
+								echo '<select name="category" id="cgc-as-category-name">';
 									echo '<option id="cgc-as-cat-any" value=""' . $selected . '>Any</option>';
 									foreach( $cats as $cat ) {
 										$selected = ' ' . selected( $cat->slug, $value, false );
