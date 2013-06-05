@@ -22,15 +22,15 @@ class CGC_Search_Form {
 
 	// Override the default get_search_form() call
 	public function searchform( $form ) {
-		$type = isset( $_GET['type'] ) ? urldecode( $_GET['type'] ) : 'tutorials';
+		$s_type = isset( $_GET['s_type'] ) ? urldecode( $_GET['s_type'] ) : 'tutorials';
 		ob_start(); ?>
 		<form role="search" method="get" id="searchform" action="<?php echo home_url(); ?>">
 			<label class="screen-reader-text" for="searchinput"></label>
 			<input type="text" name="s" id="searchinput" placeholder="Search" value="<?php echo get_search_query(); ?>"/>
 			<div class="search-buttons">
-				<select name="type" id="cgc-search-type">
+				<select name="s_type" id="cgc-search-s_type">
 					<option value="tutorials">Tutorials</option>
-					<option value="members"<?php selected( 'members', $type ); ?>>Members</option>
+					<option value="members"<?php selected( 'members', $s_type ); ?>>Members</option>
 				</select>
 				<button type="submit" id="searchsubmit"><i class="icon-search"></i></button>
 			</div>
@@ -40,7 +40,7 @@ class CGC_Search_Form {
 	}
 
 
-	// Set categories, tags, post types, etc
+	// Set categories, tags, post s_types, etc
 	public function tweak_search( $query ) {
 
 		return $query;
@@ -53,10 +53,10 @@ class CGC_Search_Form {
 		if( empty( $_GET['s'] ) )
 			return;
 
-		if( empty( $_GET['type'] ) )
+		if( empty( $_GET['s_type'] ) )
 			return;
 
-		if( 'members' != $_GET['type'] )
+		if( 'members' != $_GET['s_type'] )
 			return;
 
 
