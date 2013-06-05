@@ -246,7 +246,7 @@ class CGC_Search_Form {
 				$query->set( 'post_type', 'any' );
 			}
 
-			echo '<pre>'; print_r( $query ); echo '</pre>'; exit;
+			//echo '<pre>'; print_r( $query ); echo '</pre>'; exit;
 
 		}
 
