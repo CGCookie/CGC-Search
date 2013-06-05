@@ -177,7 +177,7 @@ class CGC_Search_Form {
 					foreach( $taxonomies as $tax ) {
 						$terms = get_terms( $tax );
 						$taxonomy = get_taxonomy( $tax );
-						echo '<div class="cgc-' . $taxonomy->query_var . '">';
+						echo '<div class="cgc-' . $taxonomy->query_var . '" style="display:none">';
 							if ( $search_tax_text ) echo '<h3>' . sprintf( $search_tax_text, $taxonomy->labels->singular_name ) . '</h3>';
 							$value   = isset( $_GET[$taxonomy->query_var] ) ? $_GET[$taxonomy->query_var] : '';
 							$checked = ' ' . checked( '', $value, false );
