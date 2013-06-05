@@ -95,7 +95,7 @@ class CGC_Search_Form {
 							$checked = ' ' . checked( $type->name, $value, false );
 							if( !in_array( $type->name, $exluded_types ) || !is_array( $exluded_types ) ) {
 								echo '<span class="cgc-type">';
-									echo '<input type="checkbox" id="cgc-as-type-' . $type->name . '" name="post_type[]" value="' . $type->name . '"' . $checked . '/>&nbsp;';
+									echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label">' . $type->labels->singular_name . '</label>';
 								echo '</span>';
 							}
