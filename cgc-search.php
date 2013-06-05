@@ -236,7 +236,7 @@ class CGC_Search_Form {
 				if( 'cgc-search' != $key ) {
 					if( is_string( $param ) ) {
 						if( substr( $key, 0, 2 ) == 's_' )
-							$key = substr( $key, 2 strlen( $key ) );
+							$key = substr( $key, 2, strlen( $key ) );
 						$query->set( $key, rawurldecode( $param ) );
 					} else {
 						$query->set( $key, $param );
