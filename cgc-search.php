@@ -28,7 +28,7 @@ class CGC_Search_Form {
 			<label class="screen-reader-text" for="searchinput"></label>
 			<input type="text" name="s" id="searchinput" placeholder="Search" value="<?php echo get_search_query(); ?>"/>
 			<div class="search-buttons">
-				<select name="s_type" id="cgc-search-s_type">
+				<select name="s_type" id="cgc-search-type">
 					<option value="tutorials">Tutorials</option>
 					<option value="members"<?php selected( 'members', $s_type ); ?>>Members</option>
 				</select>
