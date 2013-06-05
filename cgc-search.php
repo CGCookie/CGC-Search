@@ -237,6 +237,8 @@ class CGC_Search_Form {
 					if( is_string( $param ) ) {
 						if( 's_post_type' == $key )
 							$key = 'post_type';
+						if( 's_post_type' == $key && 'images' == $param )
+							$search_params['s_category'] = 'imagecategories';
 						if( 's_category' == $key )
 							$key = 'category';
 						$query->set( $key, rawurldecode( $param ) );
