@@ -216,7 +216,7 @@ class CGC_Search_Form {
 					<fieldset id="cgc-search-terms">
 						<?php if ( $search_text ) echo '<h3>' . $search_text . '</h3>'; ?>
 						<input type="text" name="s" id="searchinput" placeholder="<?php echo $placeholder; ?>"/>
-						<input type="hidden" name="cgc-search" value="advanced-search" />
+						<input type="hidden" name="cgc-search" value="1" />
 						<input id="advsearchsubmit" type="submit" value="<?php echo $search_text; ?>"/>
 					</fieldset>
 				<?php echo '</div>'; ?>
@@ -245,6 +245,8 @@ class CGC_Search_Form {
 				// override the other post types set
 				$query->set( 'post_type', 'any' );
 			}
+
+			echo '<pre>'; print_r( $query ); echo '</pre>'; exit;
 
 		}
 
