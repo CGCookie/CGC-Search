@@ -209,8 +209,7 @@ class CGC_Search_Form {
 					}
 				}
 
-				?>
-				<?php echo '<div class="cgc-search">';
+				echo '<div class="cgc-search">';
 				$placeholder = isset( $_GET['s'] ) ? $_GET['s'] : $placeholder;
 				?>
 					<fieldset id="cgc-search-terms">
