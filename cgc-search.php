@@ -86,7 +86,7 @@ class CGC_Search_Form {
 					$value = isset( $_GET['s_post_type'] ) ? $_GET['s_post_type'] : 'any';
 					$checked = ' ' . checked( '', $value, false );
 					echo '<fieldset id="cgc-type-fields">';
-						echo '<span class="cgc-type">';
+						echo '<span class="cgc-post-type-span">';
 							echo '<input type="radio" id="cgc-as-type-any" name="s_post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
 							echo '<label for="cgc-as-type-any" class="cgc-as-label">Any</label>';
 						echo '</span>';
@@ -94,8 +94,8 @@ class CGC_Search_Form {
 						foreach( $types as $type ) {
 							$checked = ' ' . checked( $type->name, $value, false );
 							if( !in_array( $type->name, $exluded_types ) || !is_array( $exluded_types ) ) {
-								echo '<span class="cgc-type">';
-									echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
+								echo '<span class="cgc-post-type-span">';
+									echo '<input type="radio" class="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
 									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label">' . $type->labels->singular_name . '</label>';
 								echo '</span>';
 							}
