@@ -87,7 +87,7 @@ class CGC_Search_Form {
 					$checked = ' ' . checked( '', $value, false );
 					echo '<fieldset id="cgc-type-fields">';
 						echo '<span class="cgc-type">';
-							echo '<input type="checkbox" id="cgc-as-type-any" name="post_type[]" value="' . $value . '"' . $checked . '/>&nbsp;';
+							echo '<input type="radio" id="cgc-as-type-any" name="post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
 							echo '<label for="cgc-as-type-any" class="cgc-as-label">Any</label>';
 						echo '</span>';
 
