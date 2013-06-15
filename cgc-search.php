@@ -228,8 +228,8 @@ class CGC_Search_Form {
 	// Set categories, tags, post s_types, etc
 	public function tweak_search( $query ) {
 
-		if( ! is_object( $query ) )
-			return;
+		if( ! is_search() )
+			return $query;
 
 		if( $query->is_main_query() && $query->is_search() && isset( $_GET['cgc-search'] ) ) {
 
