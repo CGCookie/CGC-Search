@@ -231,6 +231,9 @@ class CGC_Search_Form {
 		if( ! is_search() )
 			return $query;
 
+		if( ! is_object( $query ) )
+			return $query;;
+
 		if( $query->is_main_query() && $query->is_search() && isset( $_GET['cgc-search'] ) ) {
 
 			$search_params = $_GET;
