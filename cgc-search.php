@@ -279,7 +279,7 @@ class CGC_Search_Form {
 				's'           => $_GET['s'],
 				'cgc-search'  => '1'
 			);
-			wp_redirect( $args, home_url() ); exit;
+			wp_redirect( add_query_args( $args, home_url() ) ); exit;
 		}
 
 		// Check child theme
