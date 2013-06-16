@@ -35,6 +35,7 @@ class CGC_Search_Form {
 				<select name="s_type" id="cgc-search-type">
 					<option value="tutorials">Tutorials</option>
 					<option value="members"<?php selected( 'members', $s_type ); ?>>Members</option>
+					<option value="images"<?php selected( 'images', $s_type ); ?>>Images</option>
 				</select>
 				<button type="submit" id="searchsubmit"><i class="icon-search"></i></button>
 			</div>
@@ -58,7 +59,6 @@ class CGC_Search_Form {
 				'excluded_post_types'   => NULL,
 				'taxonomies'            => NULL,
 				'style'                 => 'radio',
-				'search_text'           => 'Key Words',
 				'placeholder'           => 'Enter search terms',
 				'search_type_text'      => 'Search by Type',
 				'search_cat_text'       => 'Search by Category',
@@ -266,6 +266,9 @@ class CGC_Search_Form {
 			return;
 
 		if( 'members' != $_GET['s_type'] )
+			return;
+
+		if( 'images' != $_GET['s_type'] )
 			return;
 
 
