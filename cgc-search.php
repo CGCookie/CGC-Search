@@ -269,7 +269,7 @@ class CGC_Search_Form {
 		if( empty( $_GET['s_type'] ) )
 			return;
 
-		if( 'images' == $_GET['s_type'] ) {
+		if( 'images' == $_GET['s_type'] && ! isset( $_GET['cgc-search'] ) ) {
 			$args = array(
 				's_post_type' => 'images',
 				's_type'      => 'images',
