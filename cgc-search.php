@@ -82,21 +82,23 @@ class CGC_Search_Form {
 				<?php
 				if( $post_types && is_null( $post_type ) ) {
 					echo '<div class="cgc-post-type">';
-					if ( $search_type_text ) echo '<h3>' . $search_type_text . '</h3>';
 					$value = isset( $_GET['s_post_type'] ) ? $_GET['s_post_type'] : 'any';
 					$checked = ' ' . checked( '', $value, false );
 					echo '<fieldset id="cgc-type-fields">';
+					if ( $search_type_text ) echo '<h4 class="fieldset-title">' . $search_type_text . '</h4>';					
 						echo '<span class="cgc-post-type-span">';
-							echo '<input type="radio" id="cgc-as-type-any" name="s_post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
-							echo '<label for="cgc-as-type-any" class="cgc-as-label">Any</label>';
+							echo '<label for="cgc-as-type-any" class="cgc-as-label radio">Any';
+								echo '<input type="radio" id="cgc-as-type-any" name="s_post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
+							echo '</label>';
 						echo '</span>';
 
 						foreach( $types as $type ) {
 							$checked = ' ' . checked( $type->name, $value, false );
 							if( !in_array( $type->name, $exluded_types ) || !is_array( $exluded_types ) ) {
 								echo '<span class="cgc-post-type-span">';
-									echo '<input type="radio" class="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
-									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label">' . $type->labels->singular_name . '</label>';
+									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label radio">' . $type->labels->singular_name ;								
+										echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
+									echo '</label>';
 								echo '</span>';
 							}
 						}
@@ -109,10 +111,10 @@ class CGC_Search_Form {
 				if( $categories ) {
 					$cats = get_categories();
 					echo '<div class="cgc-category">';
-						if ( $search_cat_text ) echo '<h3>' . $search_cat_text . '</h3>';
 						$value   = isset( $_GET['s_category'] ) ? $_GET['s_category'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-category-fields">';
+							if ( $search_cat_text ) echo '<h4 class="fieldset-title">' . $search_cat_text . '</h4>';						
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-category">';
 									echo '<input type="radio" id="cgc-as-cat-any" name="s_category" value=""' . $checked . '/>&nbsp;';
@@ -142,10 +144,10 @@ class CGC_Search_Form {
 				if( $tags ) {
 					$tags = get_tags();
 					echo '<div class="cgc-tag">';
-						if ( $search_tag_text ) echo '<h3>' . $search_tag_text . '</h3>';
 						$value   = isset( $_GET['post_tag'] ) ? $_GET['post_tag'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-tag-fields">';
+						if ( $search_tag_text ) echo '<h4 class="fieldset-title">' . $search_tag_text . '</h4>';						
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-tag">';
 									echo '<input type="radio" id="cgc-as-tag-any" name="s_post_tag" value=""' . $checked . '/>&nbsp;';
@@ -178,10 +180,10 @@ class CGC_Search_Form {
 						$terms = get_terms( $tax );
 						$taxonomy = get_taxonomy( $tax );
 						echo '<div class="cgc-' . $taxonomy->query_var . '" style="display:none">';
-							if ( $search_tax_text ) echo '<h3>' . sprintf( $search_tax_text, $taxonomy->labels->singular_name ) . '</h3>';
 							$value   = isset( $_GET[$taxonomy->query_var] ) ? $_GET[$taxonomy->query_var] : '';
 							$checked = ' ' . checked( '', $value, false );
 							echo '<fieldset id="cgc-' . $taxonomy->query_var . '-fields">';
+							if ( $search_tax_text ) echo '<h4 class="fieldset-title">' . sprintf( $search_tax_text, $taxonomy->labels->singular_name ) . '</h4>';							
 								if( $style == 'radio' ) {
 									echo '<span class="cgc-category">';
 										echo '<input type="radio" id="cgc-as-' . $taxonomy->query_var . '-any" name="s_' . $taxonomy->query_var . '" value=""' . $checked . '/>&nbsp;';
@@ -190,8 +192,9 @@ class CGC_Search_Form {
 									foreach( $terms as $term ) {
 										$checked = ' ' . checked( $term->slug, $value, false );
 										echo '<span class="cgc-' . $term->name . '">';
-											echo '<input type="radio" id="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" name="s_' . $taxonomy->query_var . '" value="' . $term->slug . '"' . $checked . '/>&nbsp;';
-											echo '<label for="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" class="cgc-as-label">' . $term->name . '</label>';
+											echo '<label for="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" class="cgc-as-label radio">' . $term->name;
+												echo '<input type="radio" id="cgc-as-' . $term->taxonomy . '-' . $term->term_id . '" name="s_' . $taxonomy->query_var . '" value="' . $term->slug . '"' . $checked . '/>&nbsp;';
+											echo '</label>';
 										echo '</span>';
 									}
 								} else {
@@ -213,10 +216,10 @@ class CGC_Search_Form {
 				$placeholder = isset( $_GET['s'] ) ? $_GET['s'] : $placeholder;
 				?>
 					<fieldset id="cgc-search-terms">
-						<?php if ( $search_text ) echo '<h3>' . $search_text . '</h3>'; ?>
+						<?php if ( $search_text ) echo '<h4 class="fieldset-title">' . $search_text . '</h4>'; ?>
 						<input type="text" name="s" id="searchinput" placeholder="<?php echo $placeholder; ?>"/>
 						<input type="hidden" name="cgc-search" value="1" />
-						<input id="advsearchsubmit" type="submit" value="<?php echo $search_text; ?>"/>
+						<p><input id="advsearchsubmit" type="submit" value="<?php echo $search_text; ?>"/></p>
 					</fieldset>
 				<?php echo '</div>'; ?>
 			</form>
