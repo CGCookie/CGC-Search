@@ -237,6 +237,12 @@ class CGC_Search_Form {
 		if( $query->is_main_query() && $query->is_search() && isset( $_GET['cgc-search'] ) ) {
 
 			$search_params = $_GET;
+
+			$s_type = ! empty( $_GET['s_type'] ) ? $_GET['s_type'] : false;
+			if( $s_type == 'images' ) {
+				$search_params['s_post_type'] = 'images';
+			}
+
 			foreach( $search_params as $key => $param ) {
 				if( 'cgc-search' != $key ) {
 					if( is_string( $param ) ) {
