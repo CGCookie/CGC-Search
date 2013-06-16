@@ -85,7 +85,7 @@ class CGC_Search_Form {
 					$value = isset( $_GET['s_post_type'] ) ? $_GET['s_post_type'] : 'any';
 					$checked = ' ' . checked( '', $value, false );
 					echo '<fieldset id="cgc-type-fields">';
-					if ( $search_type_text ) echo '<h4 class="fieldset-title">' . $search_type_text . '</h4>';					
+					if ( $search_type_text ) echo '<h4 class="fieldset-title">' . $search_type_text . '</h4>';
 						echo '<span class="cgc-post-type-span">';
 							echo '<label for="cgc-as-type-any" class="cgc-as-label radio">Any';
 								echo '<input type="radio" id="cgc-as-type-any" name="s_post_type" value="' . $value . '"' . $checked . '/>&nbsp;';
@@ -96,7 +96,7 @@ class CGC_Search_Form {
 							$checked = ' ' . checked( $type->name, $value, false );
 							if( !in_array( $type->name, $exluded_types ) || !is_array( $exluded_types ) ) {
 								echo '<span class="cgc-post-type-span">';
-									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label radio">' . $type->labels->singular_name ;								
+									echo '<label for="cgc-as-type-' . $type->name . '" class="cgc-as-label radio">' . $type->labels->singular_name ;
 										echo '<input type="radio" id="cgc-as-type-' . $type->name . '" name="s_post_type" value="' . $type->name . '"' . $checked . '/>&nbsp;';
 									echo '</label>';
 								echo '</span>';
@@ -114,7 +114,7 @@ class CGC_Search_Form {
 						$value   = isset( $_GET['s_category'] ) ? $_GET['s_category'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-category-fields">';
-							if ( $search_cat_text ) echo '<h4 class="fieldset-title">' . $search_cat_text . '</h4>';						
+							if ( $search_cat_text ) echo '<h4 class="fieldset-title">' . $search_cat_text . '</h4>';
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-category">';
 									echo '<input type="radio" id="cgc-as-cat-any" name="s_category" value=""' . $checked . '/>&nbsp;';
@@ -147,7 +147,7 @@ class CGC_Search_Form {
 						$value   = isset( $_GET['post_tag'] ) ? $_GET['post_tag'] : '';
 						$checked = ' ' . checked( '', $value, false );
 						echo '<fieldset id="cgc-tag-fields">';
-						if ( $search_tag_text ) echo '<h4 class="fieldset-title">' . $search_tag_text . '</h4>';						
+						if ( $search_tag_text ) echo '<h4 class="fieldset-title">' . $search_tag_text . '</h4>';
 							if( $style == 'radio' ) {
 								echo '<span class="cgc-tag">';
 									echo '<input type="radio" id="cgc-as-tag-any" name="s_post_tag" value=""' . $checked . '/>&nbsp;';
@@ -183,7 +183,7 @@ class CGC_Search_Form {
 							$value   = isset( $_GET[$taxonomy->query_var] ) ? $_GET[$taxonomy->query_var] : '';
 							$checked = ' ' . checked( '', $value, false );
 							echo '<fieldset id="cgc-' . $taxonomy->query_var . '-fields">';
-							if ( $search_tax_text ) echo '<h4 class="fieldset-title">' . sprintf( $search_tax_text, $taxonomy->labels->singular_name ) . '</h4>';							
+							if ( $search_tax_text ) echo '<h4 class="fieldset-title">' . sprintf( $search_tax_text, $taxonomy->labels->singular_name ) . '</h4>';
 								if( $style == 'radio' ) {
 									echo '<span class="cgc-category">';
 										echo '<input type="radio" id="cgc-as-' . $taxonomy->query_var . '-any" name="s_' . $taxonomy->query_var . '" value=""' . $checked . '/>&nbsp;';
@@ -241,11 +241,6 @@ class CGC_Search_Form {
 
 			$search_params = $_GET;
 
-			$s_type = ! empty( $_GET['s_type'] ) ? $_GET['s_type'] : false;
-			if( $s_type == 'images' ) {
-				$search_params['s_post_type'] = 'images';
-			}
-
 			foreach( $search_params as $key => $param ) {
 				if( 'cgc-search' != $key ) {
 					if( is_string( $param ) ) {
@@ -277,9 +272,15 @@ class CGC_Search_Form {
 		if( 'members' != $_GET['s_type'] )
 			return;
 
-		if( 'images' != $_GET['s_type'] )
-			return;
-
+		if( 'images' == $_GET['s_type'] ) {
+			$args = array(
+				's_post_type' => 'images',
+				's_type'      => '0',
+				's'           => $_GET['s'],
+				'cgc-search'  => '1'
+			);
+			wp_redirect( $args, home_url() ); exit;
+		}
 
 		// Check child theme
 		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'search-members.php' ) ) {
