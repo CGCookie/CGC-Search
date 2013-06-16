@@ -242,7 +242,7 @@ class CGC_Search_Form {
 			$search_params = $_GET;
 
 			foreach( $search_params as $key => $param ) {
-				if( 'cgc-search' != $key ) {
+				if( 'cgc-search' != $key && 's_type' != $key ) {
 					if( is_string( $param ) ) {
 						if( substr( $key, 0, 2 ) == 's_' )
 							$key = substr( $key, 2, strlen( $key ) );
@@ -272,7 +272,7 @@ class CGC_Search_Form {
 		if( 'images' == $_GET['s_type'] && ! isset( $_GET['cgc-search'] ) ) {
 			$args = array(
 				's_post_type' => 'images',
-				's_type'      => '0',
+				's_type'      => 'images',
 				's'           => $_GET['s'],
 				'cgc-search'  => '1'
 			);
