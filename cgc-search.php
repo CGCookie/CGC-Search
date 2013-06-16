@@ -275,7 +275,7 @@ class CGC_Search_Form {
 		if( 'images' == $_GET['s_type'] ) {
 			$args = array(
 				's_post_type' => 'images',
-				's_type'      => '0',
+				's_type'      => 'images',
 				's'           => $_GET['s'],
 				'cgc-search'  => '1'
 			);
