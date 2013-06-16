@@ -269,9 +269,6 @@ class CGC_Search_Form {
 		if( empty( $_GET['s_type'] ) )
 			return;
 
-		if( 'members' != $_GET['s_type'] )
-			return;
-
 		if( 'images' == $_GET['s_type'] ) {
 			$args = array(
 				's_post_type' => 'images',
@@ -281,6 +278,9 @@ class CGC_Search_Form {
 			);
 			wp_redirect( add_query_args( $args, home_url() ) ); exit;
 		}
+
+		if( 'members' != $_GET['s_type'] )
+			return;
 
 		// Check child theme
 		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'search-members.php' ) ) {
