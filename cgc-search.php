@@ -16,7 +16,7 @@ class CGC_Search_Form {
 
 		// Actions
 		add_action( 'template_redirect', array( $this, 'search_template' ) );
-		add_action( 'pre_get_posts', array( $this, 'tweak_search' ), 999 );
+		add_action( 'pre_get_posts', array( $this, 'tweak_search' ), 9999 );
 
 		// Short Codes
 		add_shortcode( 'advanced_search', array( $this, 'shortcode' ) );
@@ -235,7 +235,7 @@ class CGC_Search_Form {
 			return $query;
 
 		if( ! is_object( $query ) )
-			return $query;;
+			return $query;
 
 		if( $query->is_main_query() && $query->is_search() && isset( $_GET['cgc-search'] ) ) {
 
